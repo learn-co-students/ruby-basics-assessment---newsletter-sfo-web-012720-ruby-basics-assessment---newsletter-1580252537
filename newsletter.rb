@@ -30,9 +30,16 @@ ARTICLES = [
 def calculate_recipients
   # Using the SUBSCRIBERS and UNSUBSCRIBED arrays,
   # write a method that will return an array of only the subscribers who haven't unsubscribed
+  SUBSCRIBERS.select do |email|
+    if email != UNSUBSCRIBED[email]
+      email = SUBSCRIBERS[email]
+      # binding.pry
+    end
+  end
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
+  number_of_articles = ARTICLES.length
   ARTICLES.first(number_of_articles)
 end
 
@@ -46,6 +53,9 @@ def print_one_article(article)
   # Write a method that will take an article hash
   # and print the title, author and text as a formatted string
   # See the README/sample output for examples
+  ARTICLES.each do |article|
+    puts "#{article[:title]} + '' + #{article[:author]} + '' + #{article[:text]}"
+  end
 end
 
 def print_many_articles(articles)
@@ -54,7 +64,7 @@ def print_many_articles(articles)
 end
 
 def format_campus_location(campus)
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_subject
@@ -79,8 +89,6 @@ def print_newsletter(number)
   articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-
-  end
 end
 
 def run
